@@ -1,0 +1,163 @@
+<div class="card">
+  <div class="card-header pt-1 pb-1">
+    <h6 class="headCap">Yeni Üye Kayıt</h6>
+  </div>
+  <div class="container-fluid mt-3">
+    <form #memberRegisterForm="ngForm" (ngSubmit)="saveMemberRegister()">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-xs-4 col-md-4">
+            <div class="form-group has-info" [class.has-error]="name.invalid && name.touched">
+              <label for="txtName" class="control-label">Adı</label>
+              <input id="txtName" name="name" [(ngModel)]="memberRegisterDto.name" required #name="ngModel" type="text"
+                class="form-control" placeholder="Adı">
+              <span class="help-block" *ngIf="name.invalid && name.touched">Adı girmelisiniz.</span>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4">
+            <div class="form-group has-info" [class.has-error]="surname.invalid && surname.touched">
+              <label for="txtSurname" class="control-label">Soyadı</label>
+              <input required id="txtSurname" name="surname" [(ngModel)]="memberRegisterDto.surname" #surname="ngModel"
+                type="text" class="form-control" placeholder="Soyadı">
+              <span class="help-block" *ngIf="surname.invalid && surname.touched">Soyadı girmelisiniz.</span>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4">
+            <div class="form-group has-info" [class.has-error]="tcnumber.invalid && tcnumber.touched">
+              <label for="txtTcNumber" class="control-label">TC Kimlik No </label>
+              <input required id="txtTcNumber" name="tcnumber" [(ngModel)]="memberRegisterDto.tcnumber" #tcnumber="ngModel"
+                type="text" class="form-control" placeholder="TC Kimlik No">
+              <span class="help-block" *ngIf="tcnumber.invalid && tcnumber.touched">TC kimlik numarası girmelisiniz.</span>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4">
+            <div class="form-group has-info" [class.has-error]="birthOfDate.invalid && birthOfDate.touched">
+              <label for="birtdate" class="control-label">Doğum Tarihi</label>
+              <input required id="birtdate" name="birthOfDate" [(ngModel)]="memberRegisterDto.birthOfDate" #birthOfDate="ngModel"
+                type="text" class="form-control" placeholder="Doğum Tarihi" bsDatepicker [bsConfig]="datePickerConfig">
+              <span class="help-block" *ngIf="birthOfDate.invalid && birthOfDate.touched">Doğum Tarihi girmelisiniz.</span>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4">
+            <div class="form-group has-info" [class.has-error]="birthCityId.invalid && birthCityId.touched">
+              <label for="slcCityID" class="control-label">Doğum Yeri</label>
+              <select id="slcCityID" appSelectValidator name="birthCityId" [(ngModel)]="memberRegisterDto.birthCityId"
+                #birthCityId="ngModel" class="form-control">
+                <option [value]="-1">Seçiniz</option>
+                <option *ngFor="let city of parameterCityList" value="{{city.id}}">{{city.name}}</option>
+              </select>
+              <span class="help-block" *ngIf="birthCityId.invalid && birthCityId.touched">Doğum yeri seçmelisiniz.</span>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4">
+            <div class="form-group has-info" [class.has-error]="motherName.invalid && motherName.touched">
+              <label for="txtMotherName" class="control-label">Anne Adı</label>
+              <input id="txtMotherName" required name="motherName" [(ngModel)]="memberRegisterDto.motherName"
+                #motherName="ngModel" type="text" class="form-control" placeholder="Anne Adı">
+              <span class="help-block" *ngIf="motherName.invalid && motherName.touched">Anne adını girmelisiniz</span>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4">
+            <div class="form-group has-info" [class.has-error]="fatherName.invalid && fatherName.touched">
+              <label for="txtFatherName" class="control-label">Baba Adı</label>
+              <input id="txtFatherName" required name="fatherName" [(ngModel)]="memberRegisterDto.fatherName"
+                #fatherName="ngModel" type="text" class="form-control" placeholder="Baba Adı">
+              <span class="help-block" *ngIf="fatherName.invalid && fatherName.touched">Baba adını girmelisiniz</span>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4">
+            <div class="form-group" [class.has-error]="statusParameterId.invalid && statusParameterId.touched">
+              <label for="slcStatusParameterID" class="control-label">Üyelik Durumu </label>
+              <select id="slcStatusParameterID" appSelectValidator name="statusParameterId" [(ngModel)]="memberRegisterDto.statusParameterId"
+                #statusParameterId="ngModel" class="form-control">
+                <option [value]="-1">Seçiniz</option>
+                <option *ngFor="let status of parametermemberStatusList" value="{{status.id}}">{{status.name}}</option>
+
+              </select>
+              <span class="help-block" *ngIf="statusParameterId.invalid && statusParameterId.touched">Üyelik durumunu
+                seçmelisiniz.</span>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4">
+            <div class="form-group has-info" [class.has-error]="memberNumber.invalid && memberNumber.touched">
+              <label for="txtMemberNumber" class="control-label">Üye Numarası </label>
+              <input id="txtMemberNumber" required name="memberNumber" [(ngModel)]="memberRegisterDto.memberNumber"
+                #memberNumber="ngModel" type="text" class="form-control" placeholder="Üye Numarası">
+              <span class="help-block" *ngIf="memberNumber.invalid && memberNumber.touched">Üye numarası girmelisiniz.</span>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4">
+            <div class="form-group has-info" [class.has-error]="memberDate.invalid && memberDate.touched">
+              <label for="dtmemberDate" class="control-label">Üyelik Tarihi</label>
+              <input type="text" class="form-control" placeholder="Üyelik Tarihi" id="dtmemberDate" required name="memberDate"
+                [(ngModel)]="memberRegisterDto.memberDate" #memberDate="ngModel" type="text" class="form-control"
+                bsDatepicker [bsConfig]="datePickerConfig">
+              <span class="help-block" *ngIf="memberDate.invalid && memberDate.touched">Üyelik Tarihi girmelisiniz.</span>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4">
+            <div class="form-group has-info">
+              <label for="txtDecisionNumber">Karar Numarası</label>
+              <input id="txtDecisionNumber" name="decisionNumber" [(ngModel)]="memberRegisterDto.decisionNumber"
+                #decisionNumber="ngModel" type="text" class="form-control" placeholder="Karar Numarası">
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4">
+            <div class="form-group has-info">
+              <label for="dtDecisionDate" class="control-label">Karar Tarihi</label>
+              <input type="text" class="form-control" placeholder="Karar Tarihi" id="dtDecisionDate" required name="decisionDate"
+                [(ngModel)]="memberRegisterDto.decisionDate" #decisionDate="ngModel" type="text" class="form-control"
+                bsDatepicker [bsConfig]="datePickerConfig">
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4">
+            <div class="form-group has-info" [class.has-error]="phoneNumber.invalid && phoneNumber.touched">
+              <label for="txtPhoneNumber" class="control-label">Telefon No</label>
+              <input id="txtPhoneNumber" required name="phoneNumber" [(ngModel)]="memberRegisterDto.phoneNumber"
+                #phoneNumber="ngModel" type="text" class="form-control" mask="(999) 999 99 99" placeholder="Telefon No">
+              <span class="help-block" *ngIf="phoneNumber.invalid && phoneNumber.touched">Telefon numarası
+                girmelisiniz.</span>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4">
+            <div class="form-group has-info" [class.has-error]="isDisabled.invalid && isDisabled.touched">
+              <label for="slcIsDisabled" class="control-label">Engelli mi</label>
+              <select id="slcIsDisabled" appSelectValidator name="isDisabled" [(ngModel)]="memberRegisterDto.isDisabled"
+                #isDisabled="ngModel" class="form-control">
+                <option [value]="-1">Seçiniz</option>
+                <option value="1">EVET</option>
+                <option value="0">HAYIR</option>
+              </select>
+              <span class="help-block" *ngIf="isDisabled.invalid && isDisabled.touched">Engel durumunu seçmelisiniz</span>
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4">
+            <div class="form-group has-info" [class.has-error]="associationBranchParameterId.invalid && associationBranchParameterId.touched">
+              <label for="slcAssociationBranchParameterID" class="control-label">Bağlı olduğu şube</label>
+              <select id="slcAssociationBranchParameterID" appSelectValidator name="associationBranchParameterId"
+                [(ngModel)]="memberRegisterDto.associationBranchParameterId" #associationBranchParameterId="ngModel"
+                class="form-control">
+                <option [value]="-1">Seçiniz</option>
+                <option *ngFor="let branch of parameterassociationBranchList" value="{{branch.id}}">{{branch.name}}</option>
+              </select>
+              <span class="help-block" *ngIf="associationBranchParameterId.invalid && associationBranchParameterId.touched">Bağlı
+                olduğu şube seçilmelidir.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group pull-right">
+          <button type="submit" class="btn btn-success" [disabled]="memberRegisterForm.invalid">Kaydet
+            <i class="fa fa-check"></i>
+          </button>
+          <button type="reset" class="btn btnWarning text-white ml-1" (click)="resetRegisterForm(memberRegisterForm)">Temizle
+            <i class="fa fa-minus"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+    <!-- {{memberRegisterForm.value | json}} -->
+  </div>
+</div>

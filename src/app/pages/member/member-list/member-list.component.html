@@ -1,0 +1,173 @@
+<div class="card">
+  <div class="card-header pt-1 pb-1">
+    <h6 class="headCap">ÜYE LİSTELEME</h6>
+  </div>
+  <div class="container-fluid mt-3">
+      <div class="col-md-12 col-sm-12">
+        <div class="row">
+          <form #memberSearchForm="ngForm" (ngSubmit)="getMemberSearchList()">
+            <div class="col-md-12 row">
+              <div class="col-xs-6 col-md-6">
+                <div class="form-group has-info">
+                  <label for="txtMemberFullName">Adı Soyadı</label>
+                  <input id="txtMemberFullName" name="memberFullName" [(ngModel)]="memberSearchDto.memberFullName"
+                    #memberFullName="ngModel" type="text" class="form-control" placeholder="Adı Soyadı">
+                </div>
+              </div>
+              <div class="col-xs-3 col-md-3">
+                <div class="form-group has-info">
+                  <label>TC Kimlik No </label>
+                  <input id="txtTcnumber" name="tcnumber" [(ngModel)]="memberSearchDto.tcnumber" #tcnumber="ngModel"
+                    type="text" class="form-control" placeholder="TC Kimlik No">
+                </div>
+              </div>
+              <div class="col-xs-3 col-md-3">
+                <div class="form-group">
+                  <label for="slcStatusParameterID">Üyelik Durumu </label>
+                  <select id="slcStatusParameterID" name="statusParameterID" [(ngModel)]="memberSearchDto.statusParameterId"
+                    #statusParameterID="ngModel" class="form-control">
+                    <option [value]="-1">Seçiniz</option>
+                    <option *ngFor="let status of parametermemberStatusList" value="{{status.id}}">{{status.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-xs-3 col-md-3">
+                <div class="form-group has-info">
+                  <label for="txtmemberNumber">Üye Numarası</label>
+                  <input id="txtmemberNumber" name="memberNumber" [(ngModel)]="memberSearchDto.memberNumber"
+                    #memberNumber="ngModel" type="text" class="form-control" placeholder="Üye Numarası">
+                </div>
+              </div>
+              <div class="col-xs-3 col-md-3">
+                <div class="form-group has-info">
+                  <label for="dtmemberDate">Üyelik Tarihi</label>
+                  <input id="dtmemberDate" name="memberDate" [(ngModel)]="memberSearchDto.memberDate" #memberDate="ngModel"
+                    bsDatepicker [bsConfig]="datePickerConfig" type="text" class="form-control" placeholder="Üyelik Tarihi">
+                </div>
+              </div>
+              <div class="col-xs-3 col-md-3">
+                <div class="form-group has-info">
+                  <label for="dtmemberDate">Anne Adı</label>
+                  <input id="txtMotherName" name="motherName" [(ngModel)]="memberSearchDto.motherName" #motherName="ngModel"
+                    type="text" class="form-control" placeholder="Anne Adı">
+                </div>
+              </div>
+              <div class="col-xs-3 col-md-3">
+                <div class="form-group">
+                  <label for="slcisDisabled">Engelli Durumu</label>
+                  <select id="slcisDisabled" name="isDisabled" [(ngModel)]="memberSearchDto.isDisabled" #isDisabled="ngModel"
+                    class="form-control">
+                    <option [value]="-1">Seçiniz</option>
+                    <option value="1">EVET</option>
+                    <option value="0">HAYIR</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-xs-3 col-md-3">
+                <div class="form-group">
+                  <label for="slcCityAddressId">Şehir</label>
+                  <select id="slcCityAddressId" name="cityAddressId" [(ngModel)]="memberSearchDto.cityAddressId"
+                    #cityAddressId="ngModel" class="form-control">
+                    <option [value]="-1">Seçiniz</option>
+                    <option *ngFor="let city of parameterCityList" value="{{city.id}}">{{city.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-xs-3 col-md-3">
+                <div class="form-group">
+                  <label for="slcAssociationBranchParameterId">Dernek Şubesi</label>
+                  <select id="slcAssociationBranchParameterId" name="isDisabled" [(ngModel)]="memberSearchDto.associationBranchParameterId"
+                    #associationBranchParameterId="ngModel" class="form-control">
+                    <option [value]="-1">Seçiniz</option>
+                    <option *ngFor="let association of parameterassociationBranchList" value="{{association.id}}">{{association.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group pull-right">
+                  <button type="button" class="btn btnWarning text-white" (click)="resetMemberSearchForm(memberSearchForm)">Temizle
+                      <i class="fa fa-minus"></i>
+                    </button>
+                <button type="button" class="btn btn-success ml-1" [routerLink]="['/memberRegister']">Yeni Kayıt
+                  <i class="fa fa-check"></i>
+                </button>
+              </div>
+              <div class="form-group pull-left ">
+                <button type="submit" class="btn btn-primary">Listele<i class="fa fa-check"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="row">
+          <table class="table table-bordered table-hover table-striped ml-3 mr-3">
+            <thead class="">
+              <tr>
+                <th>
+                  #
+                </th>
+                <th>
+                  Üye No
+                </th>
+                <th>
+                  Ad Soyad
+                </th>
+                <th>
+                  Üyelik Tarihi
+                </th>
+                <th>
+                  Üyelik Durumu
+                </th>
+                <th>
+                  Engelli mi
+                </th>
+                <th>
+                  Özet
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let member of membersDto">
+                <td>
+                  <a (click)="onClickIdentityDetail(member.memberId)">
+                    <i class="fa fa-edit" aria-hidden="true"></i>
+                  </a>
+                </td>
+                <td>
+                  {{member.memberNumber}}
+                </td>
+                <td>
+                  {{member.memberFullName}}
+                </td>
+                <td>
+                  {{member.memberDate}}
+                </td>
+                <td>
+                  {{member.statusParameterName}}
+                </td>
+                <td>
+                  {{member.isDisabled}}
+                </td>
+                <td>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="displayPagination">
+          <pagination [boundaryLinks]="true" [totalItems]="totalMembersCount" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)"
+            previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+          </pagination>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div *ngIf="displayPagination" class="col-md-12 col-sm-12 row">
+  <select [(ngModel)]="pageSize" (change)="updatePageSize()">
+    <option [value]="size" *ngFor="let size of pageSizes">
+      {{size}}
+    </option>
+  </select>
+</div> -->

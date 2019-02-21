@@ -1,1 +1,84 @@
 /* You can add global styles to this file, and also import other style files */
+thead{
+    background-color: #5087ec;
+    color: white;
+}
+
+.card-header{
+    background-color: #5087ec;
+    color: white;
+}
+
+.centerColumn{
+    text-align: center;
+    width: 40px;
+}
+
+.btnWarning{
+    background-color: #ff8100;
+}
+
+
+.w30px {
+    width: 30px !important;
+}
+
+.w40px {
+    width: 40px !important;
+}
+.w45px {
+    width: 45px !important;
+}
+.w50px {
+    width: 50px !important;
+}
+
+.w60px {
+    width: 60px !important;
+}
+
+.w70px {
+    width: 70px !important;
+}
+
+.w80px {
+    width: 80px !important;
+}
+
+.w90px {
+    width: 90px !important;
+}
+
+.w100px {
+    width: 100px !important;
+}
+.w120px {
+    width: 120px !important;
+}
+.w110px {
+    width: 110px !important;
+}
+.w130px {
+    width: 130px !important;
+}
+
+.w140px {
+    width: 140px !important;
+}
+.w145px {
+    width: 145px !important;
+}
+.w185px {
+    width: 185px !important;
+}
+.w250px {
+    width: 250px !important;
+}
+
+.w300px {
+    width: 300px !important;
+}
+
+.w350px {
+    width: 350px !important;
+}

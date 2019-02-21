@@ -3,8 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  BASE_URL: "http://localhost:5000/v1/",
+  toastr: {  
+    timeOut: 5000,
+    positionClass: 'toast-center-center',
+    preventDuplicates: true,
+    closeButton: true,  
+  },
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

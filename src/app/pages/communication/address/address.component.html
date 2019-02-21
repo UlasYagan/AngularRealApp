@@ -1,0 +1,128 @@
+<div class="container">
+    <ng-template #template>
+      <div class="modal-body">
+          <div class="card">
+              <div class="card-header pt-1 pb-1">
+                <h6 class="headCap">Adres</h6>
+              </div>
+              <div class="mt-3">
+              <form #addressForm="ngForm" (ngSubmit)="saveAddress()">
+                <input type="hidden" name="identityId" [(ngModel)]="addressDto.identityId" #identityId="ngModel">
+                <input type="hidden" name="addressId" [(ngModel)]="addressDto.addressId" #addressId="ngModel">
+                <div class="col-md-12 row">
+                  <div class="col-xs-3 col-md-3">
+                    <div class="form-group has-info" [class.has-error]="communicationParameterId.invalid && communicationParameterId.touched">
+                      <label for="slcCommunicationParameter" class="control-label">Tip</label>
+                      <select id="slcCommunicationParameter" appSelectValidator name="communicationParameterId" [(ngModel)]="addressDto.communicationParameterId"
+                        #communicationParameterId="ngModel" class="form-control" title="Seçiniz">
+                        <option [value]="-1">Seçiniz.</option>
+                        <option *ngFor="let commu of parameterCommunicationList" value="{{commu.id}}">{{commu.name}}</option>
+                      </select>
+                      <span class="help-block" *ngIf="communicationParameterId.invalid && communicationParameterId.touched">İletişim tipi seçmelisiniz.</span>
+                    </div>
+                  </div>
+                  <div class="col-xs-9 col-md-9">
+                    <div class="form-group has-info" [class.has-error]="address1.invalid && address1.touched">
+                      <label for="txtaddress" class="control-label">Adres</label>
+                      <input id="txtaddress" required name="address1" [(ngModel)]="addressDto.address1" #address1="ngModel" type="text" class="form-control"
+                        placeholder="Adres">
+                      <span class="help-block" *ngIf="address1.invalid && address1.touched">Adres girmelisiniz.</span>
+                    </div>
+                  </div>
+  
+                  <div class="col-xs-4 col-md-4">
+                    <div class="form-group has-info" [class.has-error]="cityParameterId.invalid && cityParameterId.touched">
+                      <label for="slcCityParameterId" class="control-label">İl</label>
+                      <select id="slcCityParameterId" appSelectValidator name="cityParameterId" [(ngModel)]="addressDto.cityParameterId" #cityParameterId="ngModel"
+                        class="form-control" title="Seçiniz" (change)="cityParameterChange($event)">
+                        <option [value]="-1">Seçiniz.</option>
+                        <option *ngFor="let city of parameterCityList" value="{{city.id}}">{{city.name}}</option>
+                      </select>
+                      <span class="help-block" *ngIf="cityParameterId.invalid && cityParameterId.touched">İl seçmelisiniz.</span>
+                    </div>
+                  </div>
+                  <div class="col-xs-4 col-md-4">
+                    <div class="form-group has-info" [class.has-error]="townParameterId.invalid && townParameterId.touched">
+                      <label for="slctownParameterId" class="control-label">İlçe</label>
+                      <select id="slctownParameterId" appSelectValidator name="townParameterId" [(ngModel)]="addressDto.townParameterId" #townParameterId="ngModel"
+                        class="form-control" title="Seçiniz">
+                        <option [value]="-1">Seçiniz.</option>
+                        <option *ngFor="let town of parameterTownList" value="{{town.id}}">{{town.name}}</option>
+                      </select>
+                      <span class="help-block" *ngIf="townParameterId.invalid && townParameterId.touched">İlçe seçmelisiniz.</span>
+                    </div>
+                  </div>
+                  <!-- {{addressForm.value | json}} -->
+                </div>
+                <br>
+                <div class="col-md-12 margin-top-10">
+                  <div class="form-group pull-right">
+                    <button type="button" class="btn btnWarning text-white" (click)="modalRef.hide()">Kapat
+                      <i class="fa fa-times"></i>
+                    </button>
+                    <button type="submit" class="btn btn-success ml-1" [disabled]="addressForm.invalid">Kaydet
+                      <i class="fa fa-check"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    </ng-template>
+    <ng-template #templatedelete>
+        <div class="modal-body text-center">
+            <b><p class="padB15">Silmek istediğinize eminmisiniz?</p> </b>
+          <button type="button" class="btn btn-info" (click)="confirmDelete()" >Evet</button>
+          <button type="button" class="btn btn-danger" (click)="declineDelete()" >Hayır</button>
+        </div>
+      </ng-template>
+    <div class="row">
+        <table class="table table-bordered table-hover table-striped">
+          <thead>
+            <tr>
+              <th class="centerColumn">
+                #
+              </th>
+              <th class="w60px">
+                Tipi
+              </th>
+              <th>
+                Adres
+              </th>
+              <th class="w185px">
+                Şehir
+              </th>
+              <th class="centerColumn">
+                <a (click)="openModal(template)">
+                  <i class="fa fa-plus"></i>
+                </a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let adres of addressListDto">
+              <td class="centerColumn">
+                <a (click)="getAddressDetail(adres.addressId,template)">
+                  <i class="fa fa-edit" aria-hidden="true"></i>
+                </a>
+              </td>
+              <td>
+                {{adres.communicationName}}
+              </td>
+              <td>
+                {{adres.address1}}
+              </td>
+              <td>
+                {{adres.cityName}}
+              </td>
+              <td class="centerColumn">
+                <a (click)="openModalDelete(adres.addressId, templatedelete)">
+                  <i class="fa fa-times"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>

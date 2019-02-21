@@ -1,0 +1,98 @@
+<div class="container">
+    <ng-template #template>
+      <div class="modal-body">
+          <div class="card">
+              <div class="card-header pt-1 pb-1">
+                <h6 class="headCap">Email</h6>
+              </div>
+              <div class="mt-3">
+              <form #emailForm="ngForm" (ngSubmit)="saveEmail()">
+                <input type="hidden" name="identityId" [(ngModel)]="emailDto.identityId" #identityId="ngModel">
+                <input type="hidden" name="emailId" [(ngModel)]="emailDto.emailId" #emailId="ngModel">
+                <div class="col-md-12 row">
+                  <div class="col-xs-4 col-md-4">
+                    <div class="form-group has-info" [class.has-error]="communicationParameterId.invalid && communicationParameterId.touched">
+                      <label for="slcCommunicationParameter" class="control-label">Tip</label>
+                      <select id="slcCommunicationParameter" appSelectValidator name="communicationParameterId" [(ngModel)]="emailDto.communicationParameterId"
+                        #communicationParameterId="ngModel" class="form-control" title="Seçiniz">
+                        <option [value]="-1">Seçiniz.</option>
+                        <option *ngFor="let commu of parameterCommunicationList" value="{{commu.id}}">{{commu.name}}</option>
+                      </select>
+                      <span class="help-block" *ngIf="communicationParameterId.invalid && communicationParameterId.touched">İletişim tipi seçmelisiniz.</span>
+                    </div>
+                  </div>
+                  <div class="col-xs-8 col-md-8">
+                    <div class="form-group has-info" [class.has-error]="email1.invalid && email1.touched">
+                      <label for="txtEmail" class="control-label">Email</label>
+                      <input id="txtEmail" required [pattern]="emailPattern"  name="email1" [(ngModel)]="emailDto.email1" #email1="ngModel" type="email" class="form-control"
+                        placeholder="Email">
+                      <span class="help-block" *ngIf="email1.invalid && email1.touched">Email adresi girmelisiniz.</span>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="col-md-12 margin-top-10">
+                  <div class="form-group pull-right">
+                    <button type="button" class="btn btnWarning text-white" (click)="modalRef.hide()">Kapat
+                      <i class="fa fa-times"></i>
+                    </button>
+                    <button type="submit" class="btn btn-success ml-1" [disabled]="emailForm.invalid">Kaydet
+                      <i class="fa fa-check"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    </ng-template>
+    <ng-template #templatedelete>
+      <div class="modal-body text-center">
+        <b><p class="padB15">Silmek istediğinize eminmisiniz?</p> </b>
+        <button type="button" class="btn btn-info" (click)="confirmDelete()">Evet</button>
+        <button type="button" class="btn btn-danger" (click)="declineDelete()">Hayır</button>
+      </div>
+    </ng-template>
+<div class="row">
+    <table class="table table-bordered table-hover table-striped margin-top-10">
+      <thead>
+        <tr>
+          <th class="centerColumn btnBG">
+            #
+          </th>
+          <th class="w60px">
+            Tip
+          </th>
+          <th>
+            Email
+          </th>
+          <th class="centerColumn">
+            <a (click)="openModal(template)">
+              <i class="fa fa-plus"></i>
+            </a>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let email of emailListDto">
+          <td class="centerColumn">
+            <a (click)="getEmailDetail(email.emailId, template)">
+              <i class="fa fa-edit" aria-hidden="true"></i>
+            </a>
+          </td>
+          <td>
+            {{email.communicationName}}
+          </td>
+          <td>
+            {{email.email1}}
+          </td>
+          <td class="centerColumn">
+        
+            <a (click)="openModalDelete(email.emailId,templatedelete)">
+              <i class="fa fa-times red" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

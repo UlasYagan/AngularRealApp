@@ -1,21 +1,165 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<nav class="navbar navbar-default navbar-expand-xl navbar-light">
+  <div class="navbar-header d-flex col">
+      <a class="navbar-brand" href="#"><i class="fa fa-cube"></i>Brand<b>Name</b></a>  		
+      <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle navbar-toggler ml-auto">
+          <span class="navbar-toggler-icon"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+  </div>
+  <!-- Collection of nav links, forms, and other content for toggling -->
+  <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+      
+      <ul class="nav navbar-nav navbar-right ml-auto">
+          <li class="nav-item"><a href="#" class="nav-link notifications"><i class="fa fa-bell-o"></i><span class="badge">1</span></a></li>
+          <li class="nav-item"><a href="#" class="nav-link messages"><i class="fa fa-envelope-o"></i><span class="badge">10</span></a></li>
+          <li class="nav-item">
+              <a class="nav-link user-action"> Paula Wilson</a>
+          </li>
+          <li><a class="nav-link"> Çıkış yap</a></li>
+      </ul>
+  </div>
+</nav>  
+<!-- <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" href="#">Sign out</a>
+    </li>
+  </ul>
+</nav> -->
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li [routerLinkActive]="['link-active']" class="nav-item">
+            <a [routerLink]="['/identity']" class="nav-link">
+              <i class="fa fa-users"></i>
+              Üyeler
+            </a> 
+          </li>
+          <li class="nav-item">
+            <a routerLink="/employee" class="nav-link">
+              <i class="fa fa-user-secret"></i>
+              Personel
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fa fa-diamond"></i>
+              Bağışçılar
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fa fa-bookmark"></i>
+              Destekçilerimiz
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fa fa-th-list"></i>
+              Demirbaş
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fa fa-credit-card"></i>
+              Yardımlar
+            </a>
+          </li>
+          <li>
+            <a routerLink="/tools" class="nav-link">
+              <i class="fa fa-file-text"></i>
+              Araçlar
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <main role="main" class="container col-md-10">
+        <router-outlet>
+        </router-outlet>
+    </main>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
-<router-outlet></router-outlet>
+
+<!-- <div class="page-md page-header-top-fixed">
+  <div class="page-header">
+    <div class="page-header-top">
+      <div class="container">
+        <div class="page-header-menu pull-right">
+          <div class="hor-menu-light">
+            <ul class="nav navbar-nav" style="flex-direction:row">
+              <li [routerLinkActive]="['link-active']">
+                <a [routerLink]="['/identity']">
+                  <i class="fa fa-users"></i>
+                  Üyeler
+                </a>
+              </li>
+              <li>
+                <a routerLink="/employee">
+                  <i class="fa fa-user-secret"></i>
+                  Personel
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa fa-diamond"></i>
+                  Bağışçılar
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa fa-bookmark"></i>
+                  Destekçilerimiz
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa fa-th-list"></i>
+                  Demirbaş
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa fa-credit-card"></i>
+                  Yardımlar
+                </a>
+              </li>
+              <li>
+                <a routerLink="/tools">
+                  <i class="fa fa-file-text"></i>
+                  Araçlar
+                </a>
+              </li>
+              <li class="logout">
+                <a href="#" style="padding: 10px;">
+                  <span class="sr-only">Toggle Quick Sidebar</span>
+                  <i class="fa fa-power-off"></i>
+                  Çıkış Yap
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-body mB30">
+    <router-outlet>
+    </router-outlet>
+  </div>
+  <div class="page-footer">
+    <div class="container">
+      2018 &copy;
+       <b>Ulas Yagan Software Engineer</b>
+      <div class="pull-right">
+        <b>ulas.yagan@hotmail.com</b>
+      </div>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,216 @@
+<div class="card">
+  <div class="card-header pt-1 pb-1">
+    <h5>{{memberDetailDto.name}} {{memberDetailDto.surname}}</h5>
+  </div>
+  <div class="container-fluid mt-3">
+    <p-tabView>
+      <p-tabPanel header="Genel Bilgiler" styleClass="my-panel">
+        <div class="row">
+          <!-- <button type="button" class="btn btn-outline-success pull-right">Düzenle</button> -->
+          <form #memberDetailForm="ngForm" (ngSubmit)="editMemberDetail()">
+            <div class="row">
+              <div class="col-md-3 pad0 padL15">
+                <img src="/assets/img/res1.jpg" class="img profilImg img-fluid img-thumbnail personImage">
+              </div>
+              <div class="col-md-9 pad0 padL15 row">
+                <input name="memberId" [(ngModel)]="memberDetailDto.memberId" #memberId="ngModel" type="hidden">
+                <div class="col-xs-4 col-md-4">
+                  <div class="form-group has-info" [class.has-error]="name.invalid && name.touched">
+                    <label for="txtName" class="control-label">Adı</label>
+                    <input id="txtName" name="name" [(ngModel)]="memberDetailDto.name" required #name="ngModel" type="text"
+                      class="form-control input-sm" placeholder="Adı">
+                    <span class="help-block" *ngIf="name.invalid && name.touched">Ad girmelisiniz.</span>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                  <div class="form-group has-info" [class.has-error]="surname.invalid && surname.touched">
+                    <label for="txtSurname" class="control-label">Soyadı</label>
+                    <input required id="txtSurname" name="surname" [(ngModel)]="memberDetailDto.surname" #surname="ngModel"
+                      type="text" class="form-control" placeholder="Soyadı">
+                    <span class="help-block" *ngIf="surname.invalid && surname.touched">Soyad girmelisiniz.</span>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                  <div class="form-group has-info" [class.has-error]="tcnumber.invalid && tcnumber.touched">
+                    <label for="txtTcNumber" class="control-label">TC Kimlik No </label>
+                    <input required id="txtTcNumber" name="tcnumber" [(ngModel)]="memberDetailDto.tcnumber" #tcnumber="ngModel"
+                      type="text" class="form-control" placeholder="TC Kimlik No">
+                    <span class="help-block" *ngIf="tcnumber.invalid && tcnumber.touched">TC kimlik numarası
+                      girmelisiniz.</span>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                  <div class="form-group has-info" [class.has-error]="birthOfDate.invalid && birthOfDate.touched">
+                    <label for="birtdate" class="control-label">Doğum Tarihi</label>
+                    <input required id="birtdate" name="birthOfDate" [(ngModel)]="memberDetailDto.birthOfDate"
+                      #birthOfDate="ngModel" type="text" class="form-control" placeholder="Doğum Tarihi" bsDatepicker
+                      [bsConfig]="datePickerConfig">
+                    <span class="help-block" *ngIf="birthOfDate.invalid && birthOfDate.touched">Doğum Tarihi
+                      girmelisiniz.</span>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                  <div class="form-group has-info" [class.has-error]="birthCityId.invalid && birthCityId.touched">
+                    <label for="slcCityID" class="control-label">Doğum Yeri</label>
+                    <select id="slcCityID" appSelectValidator name="birthCityId" [(ngModel)]="memberDetailDto.birthCityId"
+                      #birthCityId="ngModel" class="form-control">
+                      <option [value]="-1">Seçiniz</option>
+                      <option *ngFor="let city of parameterCityList" value="{{city.id}}">{{city.name}}</option>
+                    </select>
+                    <span class="help-block" *ngIf="birthCityId.invalid && birthCityId.touched">Doğum yeri
+                      seçmelisiniz.</span>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                  <div class="form-group has-info" [class.has-error]="motherName.invalid && motherName.touched">
+                    <label for="txtMotherName" class="control-label">Anne Adı</label>
+                    <input id="txtMotherName" required name="motherName" [(ngModel)]="memberDetailDto.motherName"
+                      #motherName="ngModel" type="text" class="form-control" placeholder="Anne Adı">
+                    <span class="help-block" *ngIf="motherName.invalid && motherName.touched">Anne adını girmelisiniz</span>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                  <div class="form-group has-info" [class.has-error]="fatherName.invalid && fatherName.touched">
+                    <label for="txtFatherName" class="control-label">Baba Adı</label>
+                    <input id="txtFatherName" required name="fatherName" [(ngModel)]="memberDetailDto.fatherName"
+                      #fatherName="ngModel" type="text" class="form-control" placeholder="Baba Adı">
+                    <span class="help-block" *ngIf="fatherName.invalid && fatherName.touched">Baba adını girmelisiniz</span>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                  <div class="form-group has-info" [class.has-error]="isDisabled.invalid && isDisabled.touched">
+                    <label for="slcIsDisabled" class="control-label">Engelli mi</label>
+                    <select id="slcIsDisabled" appSelectValidator name="isDisabled" [(ngModel)]="memberDetailDto.isDisabled"
+                      #isDisabled="ngModel" class="form-control">
+                      <option [value]="-1">Seçiniz</option>
+                      <option value="1">EVET</option>
+                      <option value="0">HAYIR</option>
+                    </select>
+                    <span class="help-block" *ngIf="isDisabled.invalid && isDisabled.touched">Engel durumunu
+                      seçmelisiniz</span>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                  <div class="form-group has-info" [class.has-error]="associationBranchParameterID.invalid && associationBranchParameterID.touched">
+                    <label for="slcAssociationBranchParameterID" class="control-label">Bağlı olduğu şube</label>
+                    <select id="slcAssociationBranchParameterID" appSelectValidator name="associationBranchParameterID"
+                      [(ngModel)]="memberDetailDto.associationBranchParameterId" #associationBranchParameterID="ngModel"
+                      class="form-control">
+                      <option [value]="-1">Seçiniz</option>
+                      <option *ngFor="let branch of parameterassociationBranchList" [value]="branch.id">{{branch.name}}</option>
+                    </select>
+                    <span class="help-block" *ngIf="associationBranchParameterID.invalid && associationBranchParameterID.touched">Bağlı
+                      olduğu şube seçilmelidir.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-md-3">
+                <div class="form-group has-info" [class.has-error]="memberDate.invalid && memberDate.touched">
+                  <label for="dtmemberDate" class="control-label">Üyelik Tarihi</label>
+                  <input id="dtmemberDate" required name="memberDate" [(ngModel)]="memberDetailDto.memberDate"
+                    #memberDate="ngModel" type="text" class="form-control" placeholder="Üyelik Tarihi" bsDatepicker
+                    [bsConfig]="datePickerConfig">
+                  <span class="help-block" *ngIf="memberDate.invalid && memberDate.touched">Üyelik Tarihi
+                    girmelisiniz.</span>
+                </div>
+              </div>
+              <div class="col-xs-3 col-md-3">
+                <div class="form-group has-info">
+                  <label for="txtDecisionNumber">Karar Numarası</label>
+                  <input id="txtDecisionNumber" name="decisionNumber" [(ngModel)]="memberDetailDto.decisionNumber"
+                    #decisionNumber="ngModel" type="text" class="form-control" placeholder="Karar Numarası">
+                </div>
+              </div>
+              <div class="col-xs-3 col-md-3">
+                <div class="form-group has-info">
+                  <label for="dtDecisionDate" class="control-label">Karar Tarihi</label>
+                  <input type="text" class="form-control" placeholder="Karar Tarihi" id="dtDecisionDate" required name="decisionDate"
+                    [(ngModel)]="memberDetailDto.decisionDate" #decisionDate="ngModel" type="text" class="form-control"
+                    bsDatepicker [bsConfig]="datePickerConfig">
+                </div>
+              </div>
+              <div class="col-xs-3 col-md-3">
+                <div class="form-group has-info" [class.has-error]="memberNumber.invalid && memberNumber.touched">
+                  <label for="txtMemberNumber" class="control-label">Üye Numarası </label>
+                  <input id="txtMemberNumber" required name="memberNumber" [(ngModel)]="memberDetailDto.memberNumber"
+                    #memberNumber="ngModel" type="text" class="form-control" placeholder="Üye Numarası">
+                  <span class="help-block" *ngIf="memberNumber.invalid && memberNumber.touched">Üye numarası
+                    girmelisiniz.</span>
+                </div>
+              </div>
+              <div class="col-xs-3 col-md-3">
+                <div class="form-group" [class.has-error]="statusParameterID.invalid && statusParameterID.touched">
+                  <label for="slcStatusParameterID" class="control-label">Üyelik Durumu </label>
+                  <select id="slcStatusParameterID" appSelectValidator name="statusParameterID" [(ngModel)]="memberDetailDto.statusParameterId"
+                    #statusParameterID="ngModel" class="form-control" (change)="statusParameterChange($event)">
+                    <option [value]="-1">Seçiniz</option>
+                    <option *ngFor="let status of parametermemberStatusList" value="{{status.id}}">{{status.name}}</option>
+
+                  </select>
+                  <span class="help-block" *ngIf="statusParameterID.invalid && statusParameterID.touched">Üyelik
+                    durumunu seçmelisiniz.</span>
+                </div>
+              </div>
+              <div class="col-xs-3 col-md-3">
+                <div class="form-group has-info" [class.has-error]="exitDate.invalid && exitDate.touched && statusParameterID.value == 5">
+                  <label for="dtExitDate" class="control-label">Çıkarılma Tarihi</label>
+                  <input [disabled]="statusParameterID.value != 5" id="dtExitDate" required name="exitDate" [(ngModel)]="memberDetailDto.exitDate"
+                    #exitDate="ngModel" type="text" class="form-control" bsDatepicker [bsConfig]="datePickerConfig">
+                  <span class="help-block" *ngIf="exitDate.invalid && exitDate.touched && statusParameterID.value == 5">Çıkarılma
+                    Tarihi girmelisiniz.</span>
+                </div>
+              </div>
+              <div class="col-xs-3 col-md-3">
+                <div class="form-group has-info">
+                  <label for="txtExitDecisionNumber">Çıkarılma Karar Numarası</label>
+                  <input [disabled]="statusParameterID.value != 5" id="txtExitDecisionNumber" name="exitDecisionNumber"
+                    [(ngModel)]="memberDetailDto.exitDecisionNumber" #exitDecisionNumber="ngModel" type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-9 col-md-9">
+                <div class="form-group has-info">
+                  <label for="txtReasonForExit">Çıkarılma Nedeni</label>
+                  <textarea [disabled]="statusParameterID.value != 5" id="txtReasonForExit" name="reasonForExit"
+                    [(ngModel)]="memberDetailDto.reasonForExit" #reasonForExit="ngModel" class="form-control">
+                        </textarea>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 padRL15 margin-top-20">
+              <!-- {{memberDetailForm.value | json}} -->
+              <div class="form-group pull-right">
+                <button type="submit" class="btn btn-success" [disabled]="memberDetailForm.invalid">Kaydet
+                  <i class="fa fa-check"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <p-accordion>
+          <p-accordionTab header="Adres Bilgileri">
+            <app-address [memberId]="memberID"></app-address>
+          </p-accordionTab>
+          <p-accordionTab header="Telefon Bilgileri">
+            <app-phone [memberId]="memberID"></app-phone>
+          </p-accordionTab>
+          <p-accordionTab header="Email Bilgileri">
+            <app-email [memberId]="memberID"></app-email>
+          </p-accordionTab>
+        </p-accordion>
+      </p-tabPanel>
+      <p-tabPanel header="Sağlık Bilgileri">
+        <insurance-info [memberId]="memberID"></insurance-info>
+      </p-tabPanel>
+      <p-tabPanel header="İlişkiler">
+        <relation-list [memberId]="memberID"></relation-list>
+      </p-tabPanel>
+      <p-tabPanel header="Dökümanlar">
+        <app-document [memberId]="memberID"></app-document>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>
